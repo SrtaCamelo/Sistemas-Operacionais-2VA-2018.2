@@ -17,6 +17,8 @@ def openfile(path):
     lines = [line.rstrip('\n') for line in open(path)]
     shuffle(lines)
     return lines
+def Initialize_memory(n):
+    memory = []
 
 #----------------Main-------------
 path = "teste.txt"
