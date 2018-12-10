@@ -8,6 +8,43 @@ from random import shuffle
 
 #Define Functions
 
+# exemplo de entrada print(calculadora("12+34-+"))
+def calculadora(equacao):
+	stack = []
+	a = b = 0
+	for c in equacao:
+		if c == '-':
+			if len(stack) != 0:
+				b = stack.pop()
+				a = stack.pop()
+				stack.append(a-b)
+		elif c == '+':
+			if len(stack) != 0:
+				b = stack.pop()
+				a = stack.pop()
+				stack.append(a+b)
+		elif c == '*':
+			if len(stack) != 0:
+				b = stack.pop()
+				a = stack.pop()
+				stack.append(a*b)
+		elif c == '/':
+			if len(stack) != 0:
+				b = stack.pop()
+				a = stack.pop()
+				if b != 0:
+					stack.append(a/b)
+		elif c == '^':
+			if len(stack) != 0:
+				b = stack.pop()
+				a = stack.pop()
+				if b != 0:
+					stack.append(a**b)
+		else:
+			stack.append(ord(c)-48)
+
+	return stack.pop()
+
 #---------Open FIle-----------
 """
 Abre o Arquivo txt onde estão os processos (Equações)
