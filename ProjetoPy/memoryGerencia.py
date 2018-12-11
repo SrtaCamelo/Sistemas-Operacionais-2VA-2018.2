@@ -72,11 +72,11 @@ def calculateCost(proc):
     return cost
 def inicialize_memory():
     for n in range(50):
-        print(n)
         memory.append(0)
         index.append(0)
 
 def incert_into_memory(id, cost):
+    insert_with_sucess = 1
     index_start = 0
     index_fim = 0
     pointer = 0
@@ -90,20 +90,42 @@ def incert_into_memory(id, cost):
         if count == cost:
             index_fim = pointer
         pointer += 1
-    
+        if pointer == 49 and count != cost:
+            insert_with_sucess = 0
+
+    print(index_start,index_fim)
+    if insert_with_sucess == 1:
+        for i in range(index_start,index_fim+1):
+            memory[i] = id
+            index[i] = 1
 
 
 #----------------Main-------------
 path = "equations.txt"
 inicialize_memory()
 lista_processo = openfile(path)
-id = 0
-"""
+id = 1
 for proc in lista_processo:
     #print(proc)
     size = calculateCost(proc)
     incert_into_memory(id, cost)
     id += 1
 """
-incert_into_memory(0,5)
+index [0] = 1
+index [1] = 1
+index [2] = 1
+index [5] = 1
+index [6] = 1
+index [7] = 1
 
+memory [0] = 1
+memory [1] = 1
+memory [2] = 1
+memory [5] = 3
+memory [6] = 3
+memory [7] = 3
+incert_into_memory(2,5)
+
+for i in memory:
+    print(i)
+"""
