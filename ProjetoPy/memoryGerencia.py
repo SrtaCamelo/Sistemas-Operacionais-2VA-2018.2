@@ -53,7 +53,8 @@ Retorna uma Lista de Processos aleatórizada
 
 memory = []
 index = []
-size = 0
+lista_processo = []
+#size = 0
 def openfile(path):
     lines = [line.rstrip('\n') for line in open(path)]
     return lines
@@ -74,27 +75,49 @@ def inicialize_memory():
     for n in range(50):
         memory.append(0)
         index.append(0)
-
+def cleanFromMemory(id):
+    for i in range(len(memory)):
+        if memory[i] == id:
+            memory[i] = 0
+def calculateExpressionFromID(id):
+    true_id = id-1
+    equation = lista_processo[true_id]
+    result = calculadora(equation)
+    print(equation)
+    print(result)
+def calculateFrommemory():
+    for id in memory:
+        if id != 0:
+            calculateExpressionFromID(id)
+            cleanFromMemory(id)
 def incert_into_memory(id, cost):
     insert_with_sucess = 1
     index_start = 0
     index_fim = 0
     pointer = 0
     count = 0
+    the_end = 0
     for slot in index:
-        if slot == 0:
-            count += 1
-        else:
-            count = 0
-            index_start = pointer +1
         if count == cost:
             index_fim = pointer
-        pointer += 1
-        if pointer == 49 and count != cost:
-            insert_with_sucess = 0
+            the_end = 1
+        if the_end == 0:
+            if slot == 0:
+                count += 1
+            else:
+                count = 0
+                index_start = pointer +1
 
-    print(index_start,index_fim)
+            pointer += 1
+            if pointer == 49 and count != cost:
+                insert_with_sucess = 0
+                #print("no Space")
+            elif pointer == 49 and count == cost:
+                index_fim = pointer
+
+    #print(index_start,index_fim, cost)
     if insert_with_sucess == 1:
+        #print("Inserted")
         for i in range(index_start,index_fim+1):
             memory[i] = id
             index[i] = 1
@@ -108,7 +131,8 @@ id = 1
 for proc in lista_processo:
     #print(proc)
     size = calculateCost(proc)
-    incert_into_memory(id, cost)
+    incert_into_memory(id, size)
+    calculateFrommemory()
     id += 1
 """
 index [0] = 1
